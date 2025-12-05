@@ -247,6 +247,67 @@ app.get('/api/all', async (req, res) => {
   }
 });
 
+// ============= ADMIN API (POST endpoints) =============
+// Add new skill
+app.post('/api/skills', async (req, res) => {
+  try {
+    const skill = new Skill(req.body);
+    await skill.save();
+    res.status(201).json({ success: true, data: skill });
+  } catch (error) {
+    console.error('Error adding skill:', error);
+    res.status(500).json({ success: false, error: 'Failed to add skill' });
+  }
+});
+
+// Add new project
+app.post('/api/projects', async (req, res) => {
+  try {
+    const project = new Project(req.body);
+    await project.save();
+    res.status(201).json({ success: true, data: project });
+  } catch (error) {
+    console.error('Error adding project:', error);
+    res.status(500).json({ success: false, error: 'Failed to add project' });
+  }
+});
+
+// Seed database with sample data
+app.post('/api/seed', async (req, res) => {
+  try {
+    const sampleSkills = [
+      { name: 'HTML5', category: 'Frontend', proficiency_level: 95, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', order_index: 1 },
+      { name: 'CSS3', category: 'Frontend', proficiency_level: 90, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', order_index: 2 },
+      { name: 'JavaScript', category: 'Frontend', proficiency_level: 90, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', order_index: 3 },
+      { name: 'React', category: 'Frontend', proficiency_level: 85, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', order_index: 4 },
+      { name: 'Node.js', category: 'Backend', proficiency_level: 85, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', order_index: 5 },
+      { name: 'MongoDB', category: 'Database', proficiency_level: 85, icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', order_index: 6 }
+    ];
+
+    const sampleProjects = [
+      {
+        title: '3D Sci-Fi Portfolio',
+        description: 'An immersive 3D portfolio website with interactive Three.js elements.',
+        technologies: ['Three.js', 'Express.js', 'MongoDB'],
+        github_url: 'https://github.com/Souvick14/portfolio3d',
+        featured: true,
+        order_index: 1
+      }
+    ];
+
+    await Skill.deleteMany({});
+    await Project.deleteMany({});
+    await Skill.insertMany(sampleSkills);
+    await Project.insertMany(sampleProjects);
+
+    res.json({ success: true, message: 'Database seeded successfully!' });
+  } catch (error) {
+    console.error('Error seeding database:', error);
+    res.status(500).json({ success: false, error: 'Failed to seed database' });
+  }
+});
+
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ 
