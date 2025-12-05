@@ -1,6 +1,6 @@
 # 🚀 3D Sci-Fi Portfolio Website
 
-An immersive, interactive 3D portfolio website with a sci-fi theme featuring Three.js frontend and Express.js backend with PostgreSQL database integration.
+An immersive, interactive 3D portfolio website with a sci-fi theme featuring **Three.js frontend** and **Express.js backend** with **MongoDB Atlas** cloud database.
 
 ## ✨ Features
 
@@ -8,81 +8,101 @@ An immersive, interactive 3D portfolio website with a sci-fi theme featuring Thr
 - **🌌 3D Animated Background**: 3000+ particle starfield with rotating geometric shapes
 - **🤖 Interactive 3D Model**: Rotating platform with language logo spheres in hero section
 - **✨ Custom Cursor**: Animated glowing cursor with trail effects
-- **📊 Dynamic Content**: All sections load from PostgreSQL database
+- **📊 Dynamic Content**: All sections load from MongoDB Atlas cloud database
 - **🎭 Smooth Animations**: GSAP-powered scroll animations and transitions
 - **📱 Responsive Design**: Works on desktop, tablet, and mobile devices
-- **⚡ Real-time Updates**: Any database changes automatically reflect on website
+- **☁️ Cloud-Ready**: MongoDB Atlas backend, easy deployment to Vercel/Netlify
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- HTML5, CSS3, JavaScript
-- Three.js (3D graphics)
-- GSAP (animations)
+- HTML5, CSS3, JavaScript (ES6+)
+- Three.js r128 (3D graphics)
+- GSAP 3.12 (animations)
 - Custom sci-fi theme
 
 ### Backend
-- Node.js
-- Express.js
-- PostgreSQL
+- Node.js & Express.js
+- Mongoose (MongoDB ODM)
+- MongoDB Atlas (Cloud Database)
 - CORS enabled
 
 ## 📋 Prerequisites
 
 - Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
+- MongoDB Atlas account (free tier available)
 - npm or yarn package manager
 
 ## 🚀 Getting Started
 
-### 1. Database Setup
-
-First, ensure PostgreSQL is running and create the database:
+### 1. Clone the Repository
 
 ```bash
-# Open psql or use PgAdmin
-createdb portfolio
-
-# Run the schema
-psql -U postgres -d portfolio -f database/schema.sql
-
-# Insert sample data
-psql -U postgres -d portfolio -f database/seed_data.sql
+git clone https://github.com/Souvick14/portfolio3d.git
+cd portfolio3d
 ```
 
-Or using PgAdmin:
-1. Connect to localhost:5432
-2. Create database named `portfolio`
-3. Open Query Tool and run `database/schema.sql`
-4. Run `database/seed_data.sql`
+### 2. MongoDB Atlas Setup
 
-### 2. Backend Setup
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create a free cluster
+3. Create a database user
+4. Whitelist your IP (or use 0.0.0.0/0 for all IPs)
+5. Get your connection string
+
+### 3. Backend Setup
 
 ```bash
-# Navigate to backend directory
 cd backend
 
 # Install dependencies
 npm install
 
-# Start the server
-npm start
+# Create .env file
+cp .env.example .env
 
-# For development with auto-reload
-npm run dev
+# Edit .env and add your MongoDB Atlas connection string
+# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/portfolio?retryWrites=true&w=majority
+```
+
+### 4. Seed Database
+
+```bash
+# Populate MongoDB with sample data
+node seed-mongodb.js
+```
+
+You should see:
+```
+✅ Database seeding completed!
+   - 15 skills inserted
+   - 4 projects inserted
+   - 4 objectives inserted
+   - 5 contact info inserted
+   - 5 dreams inserted
+   - 4 achievements inserted
+```
+
+### 5. Start Backend Server
+
+```bash
+npm start
 ```
 
 The backend server will start on `http://localhost:8080`
 
-### 3. Frontend Setup
+### 6. Start Frontend
+
+Open a new terminal:
 
 ```bash
-# From the root directory, serve the frontend
-# Option 1: Using Python
-python -m http.server 3000
+cd portfolio3d
 
-# Option 2: Using Node.js live-server
+# Option 1: Using live-server
 npx live-server --port=3000
+
+# Option 2: Using Python
+python -m http.server 3000
 
 # Option 3: Using VS Code Live Server extension
 # Right-click index.html and select "Open with Live Server"
@@ -95,28 +115,36 @@ The website will be available at `http://localhost:3000`
 ```
 portfolio3d/
 ├── backend/
-│   ├── server.js          # Express server
-│   ├── db.js              # Database connection
-│   ├── package.json       # Dependencies
-│   └── .env               # Environment variables
+│   ├── config/
+│   │   └── database.js         # MongoDB connection
+│   ├── models/                 # Mongoose schemas
+│   │   ├── Skill.js
+│   │   ├── Project.js
+│   │   ├── Objective.js
+│   │   ├── ContactInfo.js
+│   │   ├── Dream.js
+│   │   └── Achievement.js
+│   ├── server.js               # Express server
+│   ├── seed-mongodb.js         # Database seeding script
+│   ├── package.json
+│   ├── .env.example            # Environment template
+│   └── .env                    # Your config (not in git)
 ├── css/
-│   ├── styles.css         # Main styles
-│   └── cursor.css         # Cursor styles
+│   ├── styles.css              # Main styles
+│   └── cursor.css              # Cursor styles
 ├── js/
-│   ├── main.js            # Entry point
-│   ├── api-service.js     # API communication
-│   ├── scene.js           # Three.js scene setup
-│   ├── background.js      # Particle background
-│   ├── main-model.js      # Hero 3D model
-│   ├── sections.js        # Dynamic content
-│   ├── animations.js      # GSAP animations
-│   ├── interactions.js    # Interactive effects
-│   └── cursor-effects.js  # Custom cursor
-├── database/
-│   ├── schema.sql         # Database schema
-│   └── seed_data.sql      # Sample data
-├── images/                # Image assets
-└── index.html             # Main HTML file
+│   ├── main.js                 # Entry point
+│   ├── api-service.js          # API communication
+│   ├── scene.js                # Three.js scene setup
+│   ├── background.js           # Particle background
+│   ├── main-model.js           # Hero 3D model
+│   ├── sections.js             # Dynamic content
+│   ├── animations.js           # GSAP animations
+│   ├── interactions.js         # Interactive effects
+│   └── cursor-effects.js       # Custom cursor
+├── database/                   # Legacy PostgreSQL files
+├── images/                     # Image assets
+└── index.html                  # Main HTML file
 ```
 
 ## 🎯 API Endpoints
@@ -135,17 +163,25 @@ portfolio3d/
 
 ### Updating Content
 
-All content is stored in PostgreSQL. Simply update the database and refresh the website:
+All content is stored in MongoDB. Simply update the database:
 
-```sql
--- Add a new skill
-INSERT INTO skills (name, category, proficiency_level, icon_url, order_index)
-VALUES ('Python', 'Backend', 85, 'icon-url', 10);
+```javascript
+// Using MongoDB Compass or Atlas web interface
+// Or use the Mongoose models in your code
 
--- Add a new project
-INSERT INTO projects (title, description, technologies, github_url, featured)
-VALUES ('New Project', 'Description', ARRAY['Tech1', 'Tech2'], 'github-url', true);
+const Skill = require('./backend/models/Skill');
+
+// Add a new skill
+await Skill.create({
+  name: 'Python',
+  category: 'Backend',
+  proficiency_level: 85,
+  icon_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  order_index: 20
+});
 ```
+
+Changes are reflected immediately on page refresh!
 
 ### Changing Colors
 
@@ -155,34 +191,99 @@ Edit `css/styles.css` and modify CSS variables:
 :root {
     --color-primary: #8b5cf6;      /* Change primary color */
     --color-neon-cyan: #00ffff;    /* Change neon accents */
-    /* ... more variables */
 }
+```
+
+## 🌐 Deployment
+
+### Backend Deployment (Railway/Render)
+
+1. **Railway** (Recommended):
+   ```bash
+   # Install Railway CLI
+   npm i -g @railway/cli
+   
+   # Login and deploy
+   railway login
+   railway init
+   railway up
+   ```
+
+2. **Render**:
+   - Connect your GitHub repo
+   - Set environment variables (MONGODB_URI)
+   - Deploy
+
+### Frontend Deployment (Vercel/Netlify)
+
+1. **Vercel** (Recommended):
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel
+   ```
+
+2. **Netlify**:
+   - Drag and drop the portfolio3d folder
+   - Or connect GitHub repo
+
+### Update CORS
+
+After deploying frontend, update `backend/.env`:
+```
+CORS_ORIGIN=https://your-deployed-frontend.vercel.app
+```
+
+## 🔧 Environment Variables
+
+Create `backend/.env` from `.env.example`:
+
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/portfolio?retryWrites=true&w=majority
+PORT=8080
+NODE_ENV=production
+CORS_ORIGIN=https://your-frontend-url.com
 ```
 
 ## 🐛 Troubleshooting
 
-### Backend Connection Issues
-- Ensure PostgreSQL is running on port 5432
-- Check database credentials in `backend/.env`
-- Verify database name is `portfolio`
+### MongoDB Connection Issues
+- Verify connection string in `.env`
+- Check IP whitelist in MongoDB Atlas
+- Ensure database user has read/write permissions
+
+### Data Not Loading
+- Ensure backend server is running
+- Check browser console for errors
+- Verify API endpoint URLs match
 
 ### CORS Errors
-- Check backend server is running on port 8080
-- Verify `CORS_ORIGIN` in `.env` matches frontend URL
+- Update `CORS_ORIGIN` in `.env` with your frontend URL
+- Restart backend server after .env changes
 
-### 3D Scene Not Loading
-- Check browser console for errors
-- Ensure Three.js CDN is accessible
-- Try clearing browser cache
+## 📝 Scripts
 
-## 📝 Future Enhancements
+```bash
+# Backend
+cd backend
+npm install          # Install dependencies
+npm start            # Start server
+node seed-mongodb.js # Seed database
 
-- [ ] Mobile hamburger menu
-- [ ] Blog section
-- [ ] Admin panel for content management
-- [ ] Dark/Light mode toggle
-- [ ] More 3D models and effects
-- [ ] Performance optimizations for mobile
+# Frontend
+npx live-server --port=3000  # Start local server
+```
+
+## 🎯 Features Highlight
+
+- ✅ **Cloud Database**: MongoDB Atlas (no local DB needed)
+- ✅ **Easy Deployment**: Ready for Vercel, Netlify, Railway
+- ✅ **Modern Stack**: Latest Node.js, Express, Mongoose
+- ✅ **3D Graphics**: Three.js with 3000+ particles
+- ✅ **Responsive**: Mobile, tablet, desktop optimized
+- ✅ **SEO Optimized**: Proper meta tags and structure
 
 ## 📄 License
 
@@ -191,10 +292,12 @@ MIT License - feel free to use this portfolio template!
 ## 👤 Author
 
 **Souvick Roy**
-- Portfolio: [Your Portfolio URL]
-- GitHub: [@souvickroy](https://github.com/souvickroy)
+- GitHub: [@Souvick14](https://github.com/Souvick14)
 - LinkedIn: [Your LinkedIn]
+- Portfolio: [Your Portfolio URL]
 
 ---
 
-Built with ❤️ using Three.js, Express.js & PostgreSQL
+Built with ❤️ using Three.js, Express.js & MongoDB Atlas
+
+⭐ Star this repo if you found it helpful!
