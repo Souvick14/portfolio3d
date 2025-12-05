@@ -272,6 +272,50 @@ app.post('/api/projects', async (req, res) => {
   }
 });
 
+// Add new objective
+app.post('/api/objectives', async (req, res) => {
+  try {
+    const objective = new Objective(req.body);
+    await objective.save();
+    res.status(201).json({ success: true, data: objective });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to add objective' });
+  }
+});
+
+// Add new contact
+app.post('/api/contact', async (req, res) => {
+  try {
+    const contact = new ContactInfo(req.body);
+    await contact.save();
+    res.status(201).json({ success: true, data: contact });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to add contact' });
+  }
+});
+
+// Add new dream
+app.post('/api/dreams', async (req, res) => {
+  try {
+    const dream = new Dream(req.body);
+    await dream.save();
+    res.status(201).json({ success: true, data: dream });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to add dream' });
+  }
+});
+
+// Add new achievement
+app.post('/api/achievements', async (req, res) => {
+  try {
+    const achievement = new Achievement(req.body);
+    await achievement.save();
+    res.status(201).json({ success: true, data: achievement });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to add achievement' });
+  }
+});
+
 // Seed database with sample data
 app.post('/api/seed', async (req, res) => {
   try {
