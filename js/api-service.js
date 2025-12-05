@@ -1,5 +1,5 @@
 // API Service - Handles all backend communication
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'https://web-production-87e81.up.railway.app/api';
 
 class APIService {
     constructor() {
