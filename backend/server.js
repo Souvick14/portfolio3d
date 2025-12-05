@@ -307,6 +307,61 @@ app.post('/api/seed', async (req, res) => {
   }
 });
 
+// ============= DELETE ENDPOINTS =============
+app.delete('/api/skills/:id', async (req, res) => {
+  try {
+    await Skill.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Skill deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete skill' });
+  }
+});
+
+app.delete('/api/projects/:id', async (req, res) => {
+  try {
+    await Project.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Project deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete project' });
+  }
+});
+
+app.delete('/api/objectives/:id', async (req, res) => {
+  try {
+    await Objective.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Objective deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete objective' });
+  }
+});
+
+app.delete('/api/contact/:id', async (req, res) => {
+  try {
+    await ContactInfo.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Contact deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete contact' });
+  }
+});
+
+app.delete('/api/dreams/:id', async (req, res) => {
+  try {
+    await Dream.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Dream deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete dream' });
+  }
+});
+
+app.delete('/api/achievements/:id', async (req, res) => {
+  try {
+    await Achievement.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Achievement deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to delete achievement' });
+  }
+});
+
 
 // 404 handler
 app.use((req, res) => {
