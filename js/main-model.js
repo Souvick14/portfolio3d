@@ -36,18 +36,50 @@ function createHeroModel() {
     pointLight2.position.set(-10, -10, 10);
     heroScene.add(pointLight2);
 
-    // Create platform/hand structure
-    const platformGeometry = new THREE.CylinderGeometry(3, 3, 0.5, 32);
-    const platformMaterial = new THREE.MeshStandardMaterial({
-        color: 0x8b5cf6,
-        metalness: 0.7,
-        roughness: 0.3,
-        emissive: 0x8b5cf6,
-        emissiveIntensity: 0.2
+    // Load ROBO 3D model as platform/holder
+    const mtlLoader = new THREE.MTLLoader();
+    const objLoader = new THREE.OBJLoader();
+    
+    let platform;
+    
+    mtlLoader.setPath('ROBO/');
+    mtlLoader.load('ROBO.mtl', function(materials) {
+        materials.preload();
+        
+        objLoader.setMaterials(materials);
+        objLoader.setPath('ROBO/');
+        objLoader.load('ROBO.obj', function(object) {
+            platform = object;
+            platform.scale.set(0.8, 0.8, 0.8); // Adjust scale as needed
+            platform.position.set(0, -2, 0);
+            platform.rotation.y = 0;
+            
+            // Add some glow effect to the robot
+            object.traverse(function(child) {
+                if (child instanceof THREE.Mesh) {
+                    child.material.emissive = new THREE.Color(0x8b5cf6);
+                    child.material.emissiveIntensity = 0.2;
+                }
+            });
+            
+            heroScene.add(platform);
+            console.log('✅ ROBO model loaded successfully');
+        }, undefined, function(error) {
+            console.error('❌ Error loading ROBO model:', error);
+            // Fallback to simple platform if model fails to load
+            const fallbackGeometry = new THREE.CylinderGeometry(3, 3, 0.5, 32);
+            const fallbackMaterial = new THREE.MeshStandardMaterial({
+                color: 0x8b5cf6,
+                metalness: 0.7,
+                roughness: 0.3
+            });
+            platform = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
+            platform.position.y = -2;
+            heroScene.add(platform);
+        });
+    }, undefined, function(error) {
+        console.error('❌ Error loading ROBO materials:', error);
     });
-    const platform = new THREE.Mesh(platformGeometry, platformMaterial);
-    platform.position.y = -2;
-    heroScene.add(platform);
 
     // Create logo spheres representing different languages
     const languages = [

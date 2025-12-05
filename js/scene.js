@@ -34,6 +34,38 @@ function initScene() {
 
     sceneInitialized = true;
     
+    // Load Millennium City background model
+    const cityMtlLoader = new THREE.MTLLoader();
+    const cityObjLoader = new THREE.OBJLoader();
+    
+    cityMtlLoader.setPath('milenium city/');
+    cityMtlLoader.load('milenium_city.mtl', function(materials) {
+        materials.preload();
+        
+        cityObjLoader.setMaterials(materials);
+        cityObjLoader.setPath('milenium city/');
+        cityObjLoader.load('milenium city.obj', function(city) {
+            city.scale.set(0.5, 0.5, 0.5); // Adjust scale
+            city.position.set(0, -20, -100); // Position city in background
+            city.rotation.y = 0;
+            
+            // Add subtle lighting to city
+            city.traverse(function(child) {
+                if (child instanceof THREE.Mesh) {
+                    child.material.emissive = new THREE.Color(0x111155);
+                    child.material.emissiveIntensity = 0.1;
+                }
+            });
+            
+            scene.add(city);
+            console.log('✅ Millennium City model loaded successfully');
+        }, undefined, function(error) {
+            console.error('❌ Error loading Millennium City model:', error);
+        });
+    }, undefined, function(error) {
+        console.error('❌ Error loading Millennium City materials:', error);
+    });
+    
     console.log('✅ Three.js scene initialized');
 }
 
