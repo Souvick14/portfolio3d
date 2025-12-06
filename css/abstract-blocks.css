@@ -301,6 +301,8 @@ body {
 }
 
 .hero-image-container {
+    position: relative;
+    top: 50px;
     flex: 1;
     display: flex;
     align-items: center;
