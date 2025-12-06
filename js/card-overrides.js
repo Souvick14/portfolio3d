@@ -33,35 +33,7 @@ if (typeof sectionsManager !== 'undefined') {
                 container.appendChild(card);
             });
         };
-    }
-
-    // Override renderProjects to show images
-    if (sectionsManager.renderProjects) {
-        const originalRenderProjects = sectionsManager.renderProjects.bind(sectionsManager);
-        
-        sectionsManager.renderProjects = function() {
-            // Call original first
-            originalRenderProjects();
-            
-            // If there are projects with images, enhance them
-            if (this.data && this.data.projects) {
-                const container = document.getElementById('projects-container');
-                this.data.projects.forEach((project, index) => {
-                    if (project.image_url) {
-                        const cards = container.querySelectorAll('.project-card');
-                        if (cards[index]) {
-                            // Add image at the top of the card
-                            const imageEl = document.createElement('img');
-                            imageEl.src = project.image_url;
-                            imageEl.alt = project.title;
-                            imageEl.className = 'project-card-image';
-                            cards[index].insertBefore(imageEl, cards[index].firstChild);
-                        }
-                    }
-                });
-            }
-        };
-    }
+    };
 
     // Override renderObjectives for card layout
     if (sectionsManager.renderObjectives) {
