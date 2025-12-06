@@ -71,9 +71,9 @@ function animateProficiencyBars() {
     });
 }
 
-// 3D tilt effect on mouse move for blocks
+// 3D tilt effect on mouse move for blocks and project cards
 function init3DTilt() {
-    const blocks = document.querySelectorAll('.block, .card');
+    const blocks = document.querySelectorAll('.block, .card, .skill-card, .project-card');
     
     blocks.forEach(block => {
         block.addEventListener('mousemove', (e) => {
@@ -84,14 +84,20 @@ function init3DTilt() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
+            // Stronger tilt for project cards
+            const isProjectCard = block.classList.contains('project-card');
+            const intensity = isProjectCard ? 15 : 10;
             
-            block.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            const rotateX = (y - centerY) / intensity;
+            const rotateY = (centerX - x) / intensity;
+            
+            block.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            block.style.transition = 'transform 0.1s ease-out';
         });
         
         block.addEventListener('mouseleave', () => {
-            block.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+            block.style.transform = 'translateY(0) rotateX(0) rotateY(0) scale(1)';
+            block.style.transition = 'transform 0.3s ease';
         });
     });
 }
