@@ -104,7 +104,20 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
     });
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ success: false, error: 'Failed to upload file' });
+    console.error('File details:', {
+      mimetype: req.file?.mimetype,
+      size: req.file?.size,
+      originalname: req.file?.originalname
+    });
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to upload file',
+      details: error.message || 'Unknown error',
+      fileInfo: {
+        type: req.file?.mimetype,
+        size: `${(req.file?.size / 1024 / 1024).toFixed(2)}MB`
+      }
+    });
   }
 });
 
