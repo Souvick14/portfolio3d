@@ -31,24 +31,29 @@ window.addItem = async function(e, type) {
     e.preventDefault();
     
     // Check if this section supports file uploads
-    const sectionsWithUploads = ['dreams', 'achievements', 'projects'];
+    const sectionsWithUploads = ['dreams', 'achievements', 'projects', 'skills'];
     if (sectionsWithUploads.includes(type)) {
-        const fileInput = e.target.querySelector('input[type="file"][name="image"]');
+        // Try to find file input - could be named 'image' or 'icon'
+        let fileInput = e.target.querySelector('input[type="file"][name="image"]');
+        if (!fileInput) {
+            fileInput = e.target.querySelector('input[type="file"][name="icon"]');
+        }
         
         // If file was selected, upload it first
         if (fileInput && fileInput.files.length > 0) {
             showAlert('⏳ Uploading file...', 'success');
             
-            const imageUrl = await uploadImageFile(fileInput);
-            if (!imageUrl) {
+            const fileUrl = await uploadImageFile(fileInput);
+            if (!fileUrl) {
                 return; // Upload failed, don't proceed
             }
             
-            // Add the image URL to the form data
+            // Add the file URL to the form data
             const hiddenInput = document.createElement('input');
             hiddenInput.type = 'hidden';
-            hiddenInput.name = 'image_url';
-            hiddenInput.value = imageUrl;
+            // Use icon_url for skills, image_url for others
+            hiddenInput.name = (type === 'skills') ? 'icon_url' : 'image_url';
+            hiddenInput.value = fileUrl;
             e.target.appendChild(hiddenInput);
             
             // Remove the file input so it doesn't interfere with FormData
