@@ -331,8 +331,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Image URL (optional)</label>
-                        <input type="url" name="image_url" placeholder="https://...">
+                        <label>Upload Image (optional)</label>
+                        <input type="file" name="image" accept="image/*">
+                        <small style="color: #999; display: block; margin-top: 5px;">Max 5MB. JPG, PNG, GIF supported.</small>
                     </div>
                 </div>
                 <button type="submit" class="btn">Add Dream</button>
@@ -370,8 +371,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Image URL (optional)</label>
-                        <input type="url" name="image_url" placeholder="https://...">
+                        <label>Upload Image (optional)</label>
+                        <input type="file" name="image" accept="image/*">
+                        <small style="color: #999; display: block; margin-top: 5px;">Max 5MB. JPG, PNG, GIF supported.</small>
                     </div>
                 </div>
                 <button type="submit" class="btn">Add Achievement</button>
@@ -522,6 +524,7 @@
         // Load skills on page load
         loadItems('skills');
     </script>
+    <script src="js/admin-upload.js"></script>
     <script src="js/admin-edit.js"></script>
 </body>
 </html>
