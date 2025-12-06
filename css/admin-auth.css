@@ -1,0 +1,132 @@
+/* Admin Authentication Modal */
+.auth-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.auth-modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 50px;
+    border-radius: 20px;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.auth-modal-content h2 {
+    color: #00ffff;
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+.auth-modal-content p {
+    color: #aaa;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+#password-input {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+#password-input:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.password-error {
+    display: none;
+    color: #ff4757;
+    background: rgba(255, 71, 87, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.auth-submit-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Logout button (optional) */
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(255, 71, 87, 0.2);
+    color: #ff4757;
+    border: 1px solid #ff4757;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 71, 87, 0.3);
+    transform: scale(1.05);
+}
