@@ -366,6 +366,62 @@ body {
 /* ==========================================
    SKILLS
    ========================================== */
+.skill-category {
+    margin-bottom: 3rem;
+}
+
+.category-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-cyan);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.skill-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: 20px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity var(--transition-smooth);
+}
+
+.skill-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.3);
+    border-color: var(--color-cyan);
+}
+
+.skill-card:hover::before {
+    opacity: 0.15;
+}
+
 .skill-header {
     display: flex;
     align-items: center;
@@ -374,22 +430,51 @@ body {
 }
 
 .skill-icon {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+    transition: transform var(--transition-fast);
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .skill-name {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
+    color: var(--text-primary);
 }
 
 .proficiency-bar {
-    height: 10px;
+    height: 12px;
     background: var(--bg-tertiary);
     border-radius: 10px;
     overflow: hidden;
     margin-top: 1rem;
+    position: relative;
+}
+
+.proficiency-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .proficiency-fill {
@@ -398,6 +483,15 @@ body {
     border-radius: 10px;
     transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
+    position: relative;
+}
+
+.proficiency-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /* ==========================================
