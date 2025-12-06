@@ -69,17 +69,23 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
 
     // Determine resource type based on file mimetype
     let resourceType = 'image';
+    let uploadOptions = { 
+      folder: 'portfolio',
+      resource_type: resourceType
+    };
+    
     if (req.file.mimetype === 'application/pdf') {
       resourceType = 'raw'; // PDFs need 'raw' type in Cloudinary
+      uploadOptions.resource_type = resourceType;
+    } else if (req.file.mimetype === 'image/gif') {
+      // Explicitly set format for GIFs to ensure proper handling
+      uploadOptions.format = 'gif';
     }
 
     // Upload to Cloudinary using buffer
     const uploadPromise = new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { 
-          folder: 'portfolio',
-          resource_type: resourceType
-        },
+        uploadOptions,
         (error, result) => {
           if (error) reject(error);
           else resolve(result);
