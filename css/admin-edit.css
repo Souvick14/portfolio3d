@@ -1,0 +1,123 @@
+/* Edit Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #1a1a2e;
+    margin: 5% auto;
+    padding: 30px;
+    border: 2px solid #00ffff;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #00ffff;
+}
+
+.modal h2 {
+    color: #00ffff;
+    margin-bottom: 20px;
+}
+
+#edit-form label {
+    display: block;
+    margin: 15px 0;
+    color: #fff;
+    font-weight: 600;
+}
+
+#edit-form input,
+#edit-form textarea,
+#edit-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
+#edit-form input:focus,
+#edit-form textarea:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-save,
+.btn-cancel {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Edit buttons on list items */
+.edit-btn {
+    background: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    background: rgba(0, 255, 255, 0.4);
+    transform: scale(1.1);
+}
