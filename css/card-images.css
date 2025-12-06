@@ -1,6 +1,7 @@
 /* Image displays for dream and achievement cards */
 .dream-card-image,
-.achievement-card-image {
+.achievement-card-image,
+.project-card-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -11,7 +12,8 @@
 }
 
 .dream-card:hover .dream-card-image,
-.achievement-card:hover .achievement-card-image {
+.achievement-card:hover .achievement-card-image,
+.project-card:hover .project-card-image {
     transform: scale(1.05);
 }
 
