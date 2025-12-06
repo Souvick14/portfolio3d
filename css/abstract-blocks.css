@@ -202,6 +202,275 @@ body {
     width: 100%;
 }
 
+.nav-link.active {
+    color: var(--color-cyan);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    width: 28px;
+    height: 3px;
+    background: var(--color-cyan);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.hamburger.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .nav {
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: var(--bg-secondary);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease;
+        border-left: 1px solid var(--glass-border);
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+    }
+}
+
+/* ==========================================
+   3D HERO IMAGE PLATE
+   ========================================== */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 8rem 3rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+}
+
+.image-plate-3d {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-plate-3d::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(85deg);
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(0, 255, 255, 0.2));
+    border-radius: 50%;
+    filter: blur(30px);
+    z-index: -1;
+}
+
+.image-plate-3d:hover {
+    transform: rotateY(10deg) rotateX(-10deg) scale(1.05);
+}
+
+.hero-profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(0, 255, 255, 0.3);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    transform: translateZ(50px);
+}
+
+/* Floating Tech Logos */
+.tech-logo {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tech-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-plate-3d:hover .tech-logo {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Logo Positions (circular pattern) */
+.tech-logo-1 {
+    top: 10%;
+    left: 50%;
+}
+
+.image-plate-3d:hover .tech-logo-1 {
+    transform: translate(-50%, -120px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(227, 76, 38, 0.6);
+    border-color: #e34c26;
+}
+
+.tech-logo-2 {
+    top: 30%;
+    left: 90%;
+}
+
+.image-plate-3d:hover .tech-logo-2 {
+    transform: translate(80px, -60px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(33, 150, 243, 0.6);
+    border-color: #2196f3;
+}
+
+.tech-logo-3 {
+    bottom: 30%;
+    left: 90%;
+}
+
+.image-plate-3d:hover .tech-logo-3 {
+    transform: translate(80px, 60px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(240, 219, 79, 0.6);
+    border-color: #f0db4f;
+}
+
+.tech-logo-4 {
+    bottom: 10%;
+    left: 50%;
+}
+
+.image-plate-3d:hover .tech-logo-4 {
+    transform: translate(-50%, 120px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(97, 218, 251, 0.6);
+    border-color: #61dafb;
+}
+
+.tech-logo-5 {
+    bottom: 30%;
+    left: 10%;
+}
+
+.image-plate-3d:hover .tech-logo-5 {
+    transform: translate(-80px, 60px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(104, 160, 99, 0.6);
+    border-color: #68a063;
+}
+
+.tech-logo-6 {
+    top: 30%;
+    left: 10%;
+}
+
+.image-plate-3d:hover .tech-logo-6 {
+    transform: translate(-80px, -60px) scale(1) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(71, 162, 72, 0.6);
+    border-color: #47a248;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 6rem 2rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .image-plate-3d {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .image-plate-3d {
+        width: 280px;
+        height: 280px;
+    }
+
+    .tech-logo {
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+    }
+}
+
 /* ==========================================
    SECTIONS
    ========================================== */

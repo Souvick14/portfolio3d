@@ -33,7 +33,15 @@
         <div class="nav-brand">
             <span class="brand-text">SOUVICK<span class="brand-accent">.DEV</span></span>
         </div>
-        <ul class="nav-links">
+        
+        <!-- Hamburger Menu Toggle -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        
+        <ul class="nav-links" id="nav-links">
             <li><a href="#home" class="nav-link active">HOME</a></li>
             <li><a href="#skills" class="nav-link">SKILLS</a></li>
             <li><a href="#projects" class="nav-link">PROJECTS</a></li>
@@ -67,8 +75,33 @@
                 </a>
             </div>
         </div>
-        <!-- 3D Model Container -->
-        <div id="hero-model" class="hero-model"></div>
+        
+        <!-- 3D Image Plate with Language Logos -->
+        <div class="hero-image-container">
+            <div class="image-plate-3d">
+                <img src="image-removebg-preview-dark.png" alt="Souvick Roy" class="hero-profile-image">
+                
+                <!-- Floating Language Logos -->
+                <div class="tech-logo tech-logo-1">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                </div>
+                <div class="tech-logo tech-logo-2">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                </div>
+                <div class="tech-logo tech-logo-3">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                </div>
+                <div class="tech-logo tech-logo-4">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                </div>
+                <div class="tech-logo tech-logo-5">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                </div>
+                <div class="tech-logo tech-logo-6">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+                </div>
+            </div>
+        </div>
     </section>
     
     <!-- Skills Section -->
@@ -233,6 +266,7 @@
     
     <!--Custom Scripts -->
     <script src="js/api-service.js"></script>
+    <script src="js/navigation.js"></script>
     <script src="js/3d-scene.js"></script>
     <script src="js/cursor-3d.js"></script>
     <script src="js/block-animations.js"></script>
