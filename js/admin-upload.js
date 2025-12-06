@@ -4,7 +4,7 @@ async function uploadImageFile(fileInput) {
     if (!file) return null;
 
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);  // FIXED: Changed from 'image' to 'file'
 
     try {
         const response = await fetch(`${API_URL}/upload`, {
@@ -20,23 +20,24 @@ async function uploadImageFile(fileInput) {
         }
     } catch (error) {
         console.error('Upload error:', error);
-        showAlert('❌ Image upload failed: ' + error.message, 'error');
+        showAlert('❌ Upload failed: ' + error.message, 'error');
         return null;
     }
 }
 
-// Modify the addItem function to handle file uploads
+// Modify the addItem function to handle file uploads for ALL sections
 const originalAddItem = window.addItem;
 window.addItem = async function(e, type) {
     e.preventDefault();
     
-    // Check if this is Dreams or Achievements (sections with image support)
-    if (type === 'dreams' || type === 'achievements') {
+    // Check if this section supports file uploads
+    const sectionsWithUploads = ['dreams', 'achievements', 'projects'];
+    if (sectionsWithUploads.includes(type)) {
         const fileInput = e.target.querySelector('input[type="file"][name="image"]');
         
         // If file was selected, upload it first
         if (fileInput && fileInput.files.length > 0) {
-            showAlert('⏳ Uploading image...', 'success');
+            showAlert('⏳ Uploading file...', 'success');
             
             const imageUrl = await uploadImageFile(fileInput);
             if (!imageUrl) {
