@@ -33,6 +33,7 @@ const Objective = require('./models/Objective');
 const ContactInfo = require('./models/ContactInfo');
 const Dream = require('./models/Dream');
 const Achievement = require('./models/Achievement');
+const CV = require('./models/CV');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -58,10 +59,16 @@ app.get('/api/health', (req, res) => {
 });
 
 // ============= FILE UPLOAD API =============
-app.post('/api/upload', upload.single('image'), async (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, error: 'No file uploaded' });
+    }
+
+    // Determine resource type based on file mimetype
+    let resourceType = 'image';
+    if (req.file.mimetype === 'application/pdf') {
+      resourceType = 'raw'; // PDFs need 'raw' type in Cloudinary
     }
 
     // Upload to Cloudinary using buffer
@@ -69,7 +76,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { 
           folder: 'portfolio',
-          resource_type: 'image'
+          resource_type: resourceType
         },
         (error, result) => {
           if (error) reject(error);
@@ -84,11 +91,12 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
     res.json({ 
       success: true, 
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      resource_type: resourceType
     });
   } catch (error) {
     console.error('Upload error:', error);
-    res.status(500).json({ success: false, error: 'Failed to upload image' });
+    res.status(500).json({ success: false, error: 'Failed to upload file' });
   }
 });
 
@@ -586,6 +594,65 @@ app.use((req, res) => {
     success: false, 
     error: 'Endpoint not found' 
   });
+});
+
+// ============= CV API =============
+// Get active CV
+app.get('/api/cv', async (req, res) => {
+  try {
+    const cv = await CV.findOne({ is_active: true }).sort({ uploaded_date: -1 });
+    res.json({ success: true, data: cv });
+  } catch (error) {
+    console.error('Error fetching CV:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Upload/Create new CV
+app.post('/api/cv', async (req, res) => {
+  try {
+    // Deactivate all previous CVs
+    await CV.updateMany({}, { is_active: false });
+    
+    const cv = new CV(req.body);
+    await cv.save();
+    res.status(201).json({ success: true, data: cv });
+  } catch (error) {
+    console.error('Error creating CV:', error);
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// Update CV
+app.put('/api/cv/:id', async (req, res) => {
+  try {
+    const cv = await CV.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!cv) {
+      return res.status(404).json({ success: false, error: 'CV not found' });
+    }
+    res.json({ success: true, data: cv });
+  } catch (error) {
+    console.error('Error updating CV:', error);
+    res.status(400).json({ success: false, error: error.message });
+  }
+});
+
+// Delete CV
+app.delete('/api/cv/:id', async (req, res) => {
+  try {
+    const cv = await CV.findByIdAndDelete(req.params.id);
+    if (!cv) {
+      return res.status(404).json({ success: false, error: 'CV not found' });
+    }
+    res.json({ success: true, message: 'CV deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting CV:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 // Error handler
