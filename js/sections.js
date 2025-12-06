@@ -21,6 +21,7 @@ class SectionsManager {
         this.renderDreams();
         this.renderAchievements();
         this.renderContact();
+        this.renderCV();
         
         // Update cursor effects for new elements
         if (cursorEffects) {
@@ -260,6 +261,53 @@ class SectionsManager {
                 `;
             }
         });
+    }
+
+    async renderCV() {
+        const container = document.getElementById('cv-container');
+        if (!container) return;
+        
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/cv`);
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                const cv = result.data;
+                const uploadDate = new Date(cv.uploaded_date).toLocaleDateString();
+                
+                container.innerHTML = `
+                    <div class="cv-card">
+                        <div class="cv-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <h3 class="cv-title">${cv.title || 'My Resume'}</h3>
+                        <span class="cv-upload-date">Last updated: ${uploadDate}</span>
+                        <a href="${cv.pdf_url}" 
+                           target="_blank" 
+                           download 
+                           class="cv-download-btn">
+                            <i class="fas fa-download"></i>
+                            Download CV
+                        </a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <p class="no-cv-message">
+                        <i class="fas fa-info-circle"></i><br>
+                        No CV available at the moment.
+                    </p>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading CV:', error);
+            container.innerHTML = `
+                <p class="no-cv-message">
+                    <i class="fas fa-exclamation-circle"></i><br>
+                    Failed to load CV. Please try again later.
+                </p>
+            `;
+        }
     }
 }
 
