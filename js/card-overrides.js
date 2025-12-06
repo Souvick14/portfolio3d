@@ -15,10 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const card = document.createElement('div');
                     card.className = 'dream-card fade-in-up';
                     
+                    const imageOrIcon = dream.image_url ? 
+                        `<img src="${dream.image_url}" alt="${dream.title}" class="dream-card-image">` :
+                        '<div class="dream-icon">✨</div>';
+                    
                     card.innerHTML = `
-                        <div class="dream-icon">✨</div>
+                        ${imageOrIcon}
                         <h3 class="dream-title">${dream.title}</h3>
                         <p class="dream-description">${dream.description}</p>
+                        ${dream.category ? `<span class="dream-category">${dream.category}</span>` : ''}
                     `;
                     
                     container.appendChild(card);
@@ -69,6 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const card = document.createElement('div');
                     card.className = 'achievement-card fade-in-up';
                     
+                    const imageOrIcon = achievement.image_url ?
+                        `<img src="${achievement.image_url}" alt="${achievement.title}" class="achievement-card-image">` :
+                        '<div class="achievement-icon">🏆</div>';
+                    
                     const achievementDate = achievement.achievement_date ?
                         `<span class="achievement-date"><i class="fas fa-calendar"></i> ${new Date(achievement.achievement_date).toLocaleDateString()}</span>` : '';
                     
@@ -76,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         `<span class="achievement-category"><i class="fas fa-tag"></i> ${achievement.category}</span>` : '';
                     
                     card.innerHTML = `
-                        <div class="achievement-icon">🏆</div>
+                        ${imageOrIcon}
                         <h3 class="achievement-title">${achievement.title}</h3>
                         <p class="achievement-description">${achievement.description}</p>
                         <div>

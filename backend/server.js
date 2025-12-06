@@ -322,6 +322,115 @@ app.post('/api/achievements', async (req, res) => {
   }
 });
 
+// ============= ADMIN API (PUT endpoints for updating) =============
+// Update skill by ID
+app.put('/api/skills/:id', async (req, res) => {
+  try {
+    const skill = await Skill.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!skill) {
+      return res.status(404).json({ success: false, error: 'Skill not found' });
+    }
+    res.json({ success: true, data: skill });
+  } catch (error) {
+    console.error('Error updating skill:', error);
+    res.status(500).json({ success: false, error: 'Failed to update skill' });
+  }
+});
+
+// Update project by ID
+app.put('/api/projects/:id', async (req, res) => {
+  try {
+    const project = await Project.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!project) {
+      return res.status(404).json({ success: false, error: 'Project not found' });
+    }
+    res.json({ success: true, data: project });
+  } catch (error) {
+    console.error('Error updating project:', error);
+    res.status(500).json({ success: false, error: 'Failed to update project' });
+  }
+});
+
+// Update objective by ID
+app.put('/api/objectives/:id', async (req, res) => {
+  try {
+    const objective = await Objective.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!objective) {
+      return res.status(404).json({ success: false, error: 'Objective not found' });
+    }
+    res.json({ success: true, data: objective });
+  } catch (error) {
+    console.error('Error updating objective:', error);
+    res.status(500).json({ success: false, error: 'Failed to update objective' });
+  }
+});
+
+// Update contact by ID
+app.put('/api/contact/:id', async (req, res) => {
+  try {
+    const contact = await ContactInfo.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!contact) {
+      return res.status(404).json({ success: false, error: 'Contact not found' });
+    }
+    res.json({ success: true, data: contact });
+  } catch (error) {
+    console.error('Error updating contact:', error);
+    res.status(500).json({ success: false, error: 'Failed to update contact' });
+  }
+});
+
+// Update dream by ID
+app.put('/api/dreams/:id', async (req, res) => {
+  try {
+    const dream = await Dream.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!dream) {
+      return res.status(404).json({ success: false, error: 'Dream not found' });
+    }
+    res.json({ success: true, data: dream });
+  } catch (error) {
+    console.error('Error updating dream:', error);
+    res.status(500).json({ success: false, error: 'Failed to update dream' });
+  }
+});
+
+// Update achievement by ID
+app.put('/api/achievements/:id', async (req, res) => {
+  try {
+    const achievement = await Achievement.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!achievement) {
+      return res.status(404).json({ success: false, error: 'Achievement not found' });
+    }
+    res.json({ success: true, data: achievement });
+  } catch (error) {
+    console.error('Error updating achievement:', error);
+    res.status(500).json({ success: false, error: 'Failed to update achievement' });
+  }
+});
+
 // Seed database with sample data
 app.post('/api/seed', async (req, res) => {
   try {
