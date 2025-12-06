@@ -62,6 +62,25 @@ function animateCursor() {
     requestAnimationFrame(animateCursor);
 }
 
+// Export facade for sections.js compatibility
+window.cursorEffects = {
+    updateInteractiveElements() {
+        // Re-attach hover listeners to newly added elements
+        const hoverElements = document.querySelectorAll('a, button, .card, .btn, .nav-link');
+        hoverElements.forEach(el => {
+            if (!el.dataset.cursorInit) {
+                el.dataset.cursorInit = 'true';
+                el.addEventListener('mouseenter', () => {
+                    if (cursor) cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    if (cursor) cursor.classList.remove('hover');
+                });
+            }
+        });
+    }
+};
+
 // Initialize when document is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCustomCursor);

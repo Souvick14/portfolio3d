@@ -3,7 +3,7 @@ console.log('%c🚀 Portfolio 3D Loading...', 'color: #8b5cf6; font-size: 20px; 
 
 // Configuration
 const CONFIG = {
-    API_URL: 'http://localhost:8080/api',
+    API_URL: 'https://web-production-87e81.up.railway.app/api',
     ENABLE_3D: true,
     ENABLE_PARTICLES: true,
     DEBUG_MODE: false
