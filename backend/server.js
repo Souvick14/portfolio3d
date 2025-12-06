@@ -596,64 +596,7 @@ app.use((req, res) => {
   });
 });
 
-// ============= CV API =============
-// Get active CV
-app.get('/api/cv', async (req, res) => {
-  try {
-    const cv = await CV.findOne({ is_active: true }).sort({ uploaded_date: -1 });
-    res.json({ success: true, data: cv });
-  } catch (error) {
-    console.error('Error fetching CV:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
 
-// Upload/Create new CV
-app.post('/api/cv', async (req, res) => {
-  try {
-    // Deactivate all previous CVs
-    await CV.updateMany({}, { is_active: false });
-    
-    const cv = new CV(req.body);
-    await cv.save();
-    res.status(201).json({ success: true, data: cv });
-  } catch (error) {
-    console.error('Error creating CV:', error);
-    res.status(400).json({ success: false, error: error.message });
-  }
-});
-
-// Update CV
-app.put('/api/cv/:id', async (req, res) => {
-  try {
-    const cv = await CV.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    if (!cv) {
-      return res.status(404).json({ success: false, error: 'CV not found' });
-    }
-    res.json({ success: true, data: cv });
-  } catch (error) {
-    console.error('Error updating CV:', error);
-    res.status(400).json({ success: false, error: error.message });
-  }
-});
-
-// Delete CV
-app.delete('/api/cv/:id', async (req, res) => {
-  try {
-    const cv = await CV.findByIdAndDelete(req.params.id);
-    if (!cv) {
-      return res.status(404).json({ success: false, error: 'CV not found' });
-    }
-    res.json({ success: true, message: 'CV deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting CV:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
 
 // Error handler
 app.use((err, req, res, next) => {

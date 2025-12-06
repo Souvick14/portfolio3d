@@ -1,0 +1,19 @@
+/* Projects Container Flex Layout */
+#projects-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.project-card {
+    flex: 1 1 calc(50% - 10px);
+    /* Two columns on larger screens */
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .project-card {
+        flex: 1 1 100%;
+        /* Single column on mobile */
+    }
+}
