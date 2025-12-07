@@ -171,6 +171,19 @@ body {
     transform: scale(1.05);
     filter: drop-shadow(var(--glow-blue));
 }
+/* .nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all var(--transition-fast);
+}
+
+.nav-brand:hover {
+    filter: drop-shadow(var(--glow-blue));
+} */
 
 .nav-links {
     display: flex;
