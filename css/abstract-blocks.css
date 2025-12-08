@@ -908,14 +908,14 @@ h3,
     font-weight: 900;
     letter-spacing: 2px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    text-shadow:
+    /* text-shadow:
         1px 1px 0 rgba(79, 172, 254, 0.8),
         2px 2px 0 rgba(79, 172, 254, 0.7),
         3px 3px 0 rgba(79, 172, 254, 0.6),
         4px 4px 0 rgba(102, 126, 234, 0.5),
         5px 5px 0 rgba(102, 126, 234, 0.4),
         6px 6px 0 rgba(102, 126, 234, 0.3),
-        7px 7px 10px rgba(0, 0, 0, 0.5);
+        7px 7px 10px rgba(0, 0, 0, 0.5); */
 }
 
 /* Hover effect - enhance 3D depth */
