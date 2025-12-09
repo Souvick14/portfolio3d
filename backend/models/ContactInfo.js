@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const contactInfoSchema = new mongoose.Schema({
   type: {
     type: String,
-    required: true,
-    enum: ['email', 'phone', 'linkedin', 'github', 'twitter', 'other']
+    required: true
   },
   value: {
     type: String,
