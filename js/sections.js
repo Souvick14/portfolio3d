@@ -68,7 +68,7 @@ class SectionsManager {
             </div>
             <div class="skill-proficiency">
                 <div class="proficiency-bar">
-                    <div class="proficiency-fill" data-level="${skill.proficiency_level}" style="width: 0%"></div>
+                    <div class="proficiency-fill" data-level="${skill.proficiency_level}" style="width: ${skill.proficiency_level}%"></div>
                 </div>
                 <span class="proficiency-text">${skill.proficiency_level}%</span>
             </div>

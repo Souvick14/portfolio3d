@@ -369,8 +369,8 @@ window.addEventListener('load', () => {
 // }
 
 // // -------------------------------------------------------------
-// // Resize Handler
-// // -------------------------------------------------------------
+// Resize Handler
+// -------------------------------------------------------------
 // function onWindowResize() {
 //     camera.aspect = window.innerWidth / window.innerHeight;
 //     camera.updateProjectionMatrix();
